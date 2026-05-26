@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  <data name="AppName" xml:space="preserve"><value>NutriScan</value></data>
+  <data name="TabHome" xml:space="preserve"><value>Home</value></data>
+  <data name="TabScan" xml:space="preserve"><value>Scan</value></data>
+  <data name="TabRecipes" xml:space="preserve"><value>Recipes</value></data>
+  <data name="TabHistory" xml:space="preserve"><value>History</value></data>
+  <data name="TabSettings" xml:space="preserve"><value>Settings</value></data>
+  <data name="HelpTitle" xml:space="preserve"><value>Help</value></data>
+  <data name="HelpContent" xml:space="preserve"><value>Use Scan to photograph food. Shake your device on Home for a random meal. Voice notes work on recipe details. Nearby shows restaurants using GPS.</value></data>
+  <data name="DarkMode" xml:space="preserve"><value>Dark mode</value></data>
+  <data name="CalorieGoal" xml:space="preserve"><value>Daily calorie goal</value></data>
+  <data name="SaveSettings" xml:space="preserve"><value>Save settings</value></data>
+  <data name="ErrorCalorieRange" xml:space="preserve"><value>Calorie goal must be between 500 and 10000.</value></data>
+  <data name="ErrorPortionRange" xml:space="preserve"><value>Portion must be a number from 1 to 999.</value></data>
+  <data name="ErrorRequired" xml:space="preserve"><value>This field cannot be empty.</value></data>
+  <data name="ErrorNetwork" xml:space="preserve"><value>We could not reach the recipe service. Check your connection.</value></data>
+  <data name="Retry" xml:space="preserve"><value>Retry</value></data>
+  <data name="CameraUnavailable" xml:space="preserve"><value>Camera is not available on this device. Use gallery or try a physical device.</value></data>
+  <data name="MicrophoneUnavailable" xml:space="preserve"><value>Microphone or speech recognition is not available.</value></data>
+  <data name="LocationUnavailable" xml:space="preserve"><value>Location is unavailable. Enable GPS or try again on a device with location services.</value></data>
+  <data name="ScanFood" xml:space="preserve"><value>Scan food</value></data>
+  <data name="CapturePhoto" xml:space="preserve"><value>Capture photo</value></data>
+  <data name="ToggleFlashlight" xml:space="preserve"><value>Toggle flashlight</value></data>
+  <data name="ShakeHint" xml:space="preserve"><value>Shake phone for today's random meal recommendation</value></data>
+  <data name="NearbyRestaurants" xml:space="preserve"><value>Nearby restaurants</value></data>
+  <data name="RefreshLocation" xml:space="preserve"><value>Refresh location</value></data>
+  <data name="Loading" xml:space="preserve"><value>Loading…</value></data>
+  <data name="FavoriteMeals" xml:space="preserve"><value>Favorite meals</value></data>
+  <data name="SearchRecipes" xml:space="preserve"><value>Search recipes</value></data>
+  <data name="PortionLabel" xml:space="preserve"><value>Portion (grams)</value></data>
+  <data name="VoiceNote" xml:space="preserve"><value>Voice note</value></data>
+  <data name="StartListening" xml:space="preserve"><value>Start listening</value></data>
+  <data name="NutritionChartTitle" xml:space="preserve"><value>Weekly calories</value></data>
+  <data name="ScanHistory" xml:space="preserve"><value>Scan history</value></data>
+  <data name="MlResultFormat" xml:space="preserve"><value>Detected: {0} ({1:P0} confidence)</value></data>
+  <data name="SavedSuccess" xml:space="preserve"><value>Saved successfully.</value></data>
+  <data name="DeleteSwipeHint" xml:space="preserve"><value>Swipe left to remove from favorites</value></data>
+  <data name="OpenHelp" xml:space="preserve"><value>Open help</value></data>
+  <data name="GoNearby" xml:space="preserve"><value>Find nearby food</value></data>
+</root>
