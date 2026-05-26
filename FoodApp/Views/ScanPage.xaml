@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FoodApp.ViewModels"
+             x:Class="FoodApp.Views.ScanPage"
+             x:DataType="vm:ScanViewModel"
+             Style="{StaticResource PageStyle}"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+            <Label Text="Photograph food for AI classification (ONNX)."
+                   Style="{StaticResource CaptionStyle}" />
+
+            <Image Source="{Binding PreviewImage}"
+                   HeightRequest="240"
+                   Aspect="AspectFill"
+                   AutomationProperties.Name="Food photo preview" />
+
+            <Label Text="{Binding StatusMessage}"
+                   Style="{StaticResource CaptionStyle}"
+                   AutomationProperties.Name="Scan status" />
+
+            <Label Text="{Binding ClassificationText}"
+                   Style="{StaticResource SubTitleStyle}"
+                   AutomationProperties.Name="Classification result" />
+
+            <Button Text="Capture photo"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding CaptureAndClassifyCommand}"
+                    IsEnabled="{Binding CanCapture}"
+                    AutomationProperties.Name="Capture food photo"
+                    AutomationProperties.HelpText="Opens camera and runs machine learning classification" />
+
+            <Button Text="Choose from gallery"
+                    Command="{Binding PickFromGalleryCommand}"
+                    AutomationProperties.Name="Pick photo from gallery" />
+
+            <Button Text="Toggle flashlight"
+                    Command="{Binding ToggleFlashlightCommand}"
+                    IsEnabled="{Binding IsFlashlightSupported}"
+                    AutomationProperties.Name="Toggle flashlight"
+                    AutomationProperties.HelpText="Helps scan food in low light" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

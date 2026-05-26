@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FoodApp.ViewModels"
+             xmlns:controls="clr-namespace:FoodApp.Controls"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Class="FoodApp.Views.HomePage"
+             x:DataType="vm:HomeViewModel"
+             Style="{StaticResource PageStyle}"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="?"
+                       Order="Primary"
+                       Priority="0"
+                       Command="{Binding OpenHelpCommand}"
+                       AutomationProperties.Name="Open help"
+                       AutomationProperties.HelpText="Opens help and accessibility information" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <Grid Padding="16" RowDefinitions="Auto,Auto,Auto,Auto,*"
+              ColumnDefinitions="*,*"
+              ColumnSpacing="12"
+              RowSpacing="12">
+
+            <Label Grid.Row="0" Grid.ColumnSpan="2"
+                   Text="{Binding Title}"
+                   Style="{StaticResource TitleStyle}"
+                   AutomationProperties.Name="Home screen title" />
+
+            <controls:NutritionLabel Grid.Row="1" Grid.Column="0"
+                                   Title="Today"
+                                   Subtitle="{Binding DailyGoal, StringFormat='Goal: {0} kcal'}"
+                                   Calories="{Binding TodayCalories}"
+                                   AutomationProperties.Name="Today nutrition summary" />
+
+            <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="8">
+                <Button Text="Nearby"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Command="{Binding OpenNearbyCommand}"
+                        AutomationProperties.Name="Find nearby restaurants"
+                        AutomationProperties.HelpText="Uses GPS to list nearby food places" />
+                <Label Text="{Binding ShakeStatus}"
+                       Style="{StaticResource CaptionStyle}" />
+            </VerticalStackLayout>
+
+            <Border Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource CardBorderStyle}">
+                <VerticalStackLayout>
+                    <Label Text="Weekly calories"
+                           Style="{StaticResource SubTitleStyle}"
+                           AutomationProperties.Name="Weekly nutrition chart title" />
+                    <microcharts:ChartView Chart="{Binding CaloriesChart}"
+                                           HeightRequest="220"
+                                           AutomationProperties.Name="Weekly calorie bar chart" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="3" Grid.ColumnSpan="2"
+                    IsVisible="{Binding ShakeRecommendation, Converter={StaticResource IsNotNullConverter}}"
+                    Style="{StaticResource CardBorderStyle}">
+                <VerticalStackLayout>
+                    <Label Text="Shake recommendation"
+                           Style="{StaticResource SubTitleStyle}" />
+                    <Label Text="{Binding ShakeRecommendation.Name}"
+                           FontSize="20"
+                           AutomationProperties.Name="Recommended meal name" />
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout Grid.Row="4" Grid.ColumnSpan="2"
+                                 IsVisible="{Binding HasError}"
+                                 Spacing="8">
+                <Label Text="{Binding ErrorMessage}" Style="{StaticResource ErrorLabelStyle}" />
+                <Button Text="Retry"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Command="{Binding RetryCommand}"
+                        AutomationProperties.Name="Retry loading home data" />
+            </VerticalStackLayout>
+
+            <ActivityIndicator Grid.Row="4" Grid.ColumnSpan="2"
+                               IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               HorizontalOptions="Center" />
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FoodApp.ViewModels"
+             xmlns:models="clr-namespace:FoodApp.Models"
+             xmlns:controls="clr-namespace:FoodApp.Controls"
+             x:Class="FoodApp.Views.RecipesPage"
+             x:DataType="vm:RecipesViewModel"
+             Style="{StaticResource PageStyle}"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="16" RowSpacing="12">
+        <SearchBar Grid.Row="0"
+                   Text="{Binding SearchQuery}"
+                   Placeholder="Search recipes"
+                   SearchCommand="{Binding SearchCommand}"
+                   MinimumHeightRequest="44"
+                   AutomationProperties.Name="Search recipes"
+                   AutomationProperties.HelpText="Searches TheMealDB API" />
+
+        <Label Grid.Row="1"
+               Text="Swipe left on a favorite to remove"
+               Style="{StaticResource CaptionStyle}" />
+
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Meals}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:MealSummary">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="{StaticResource ErrorColor}"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecipesViewModel}}, Path=DeleteFavoriteCommand}"
+                                           CommandParameter="{Binding .}"
+                                           AutomationProperties.Name="Delete favorite" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Grid Padding="8" ColumnDefinitions="72,*,Auto" ColumnSpacing="12">
+                            <controls:CachedFoodImage Grid.Column="0"
+                                                      Url="{Binding ThumbnailUrl}"
+                                                      HeightRequest="72"
+                                                      WidthRequest="72" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding Name}" FontAttributes="Bold" />
+                                <Label Text="{Binding Category}" Style="{StaticResource CaptionStyle}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="2" Spacing="4">
+                                <Button Text="★"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecipesViewModel}}, Path=ToggleFavoriteCommand}"
+                                        CommandParameter="{Binding .}"
+                                        MinimumHeightRequest="44"
+                                        MinimumWidthRequest="44"
+                                        AutomationProperties.Name="Toggle favorite" />
+                                <Button Text="Open"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecipesViewModel}}, Path=OpenDetailCommand}"
+                                        CommandParameter="{Binding .}"
+                                        MinimumHeightRequest="44"
+                                        AutomationProperties.Name="Open recipe detail" />
+                            </VerticalStackLayout>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecipesViewModel}}, Path=OpenDetailCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <VerticalStackLayout Grid.Row="2"
+                             IsVisible="{Binding HasError}"
+                             VerticalOptions="Center"
+                             Spacing="8">
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource ErrorLabelStyle}" />
+            <Button Text="Retry" Command="{Binding RetryCommand}" Style="{StaticResource PrimaryButtonStyle}" />
+        </VerticalStackLayout>
+
+        <ActivityIndicator Grid.Row="2" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+    </Grid>
+</ContentPage>

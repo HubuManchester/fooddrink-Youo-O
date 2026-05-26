@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FoodApp.ViewModels"
+             xmlns:controls="clr-namespace:FoodApp.Controls"
+             x:Class="FoodApp.Views.RecipeDetailPage"
+             x:DataType="vm:RecipeDetailViewModel"
+             Style="{StaticResource PageStyle}"
+             Title="{Binding MealName}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <controls:CachedFoodImage Url="{Binding ThumbnailUrl}" HeightRequest="200" />
+            <controls:NutritionLabel Title="Estimated"
+                                     Subtitle="Adjust portion below"
+                                     Calories="{Binding EstimatedCalories}" />
+            <controls:RatingBar Rating="{Binding Rating}" />
+
+            <Label Text="Portion (grams)" Style="{StaticResource SubTitleStyle}" />
+            <Entry Text="{Binding PortionText}"
+                   Keyboard="Numeric"
+                   MinimumHeightRequest="44"
+                   AutomationProperties.Name="Portion in grams"
+                   AutomationProperties.HelpText="Must be between 1 and 999" />
+            <Label Text="{Binding PortionError}" Style="{StaticResource ErrorLabelStyle}" />
+            <Button Text="Apply portion"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding ApplyPortionCommand}"
+                    AutomationProperties.Name="Apply portion" />
+
+            <Label Text="Voice note" Style="{StaticResource SubTitleStyle}" />
+            <Editor Text="{Binding VoiceNote}"
+                    AutoSize="TextChanges"
+                    MinimumHeightRequest="80"
+                    AutomationProperties.Name="Recipe voice note" />
+            <Button Text="Start listening"
+                    Command="{Binding ListenVoiceNoteCommand}"
+                    IsEnabled="{Binding IsSpeechAvailable}"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    AutomationProperties.Name="Start voice input"
+                    AutomationProperties.HelpText="Uses microphone and speech recognition" />
+
+            <Label Text="Instructions" Style="{StaticResource SubTitleStyle}" />
+            <Label Text="{Binding Instructions}" LineBreakMode="WordWrap" />
+
+            <VerticalStackLayout IsVisible="{Binding HasError}" Spacing="8">
+                <Label Text="{Binding ErrorMessage}" Style="{StaticResource ErrorLabelStyle}" />
+                <Button Text="Retry" Command="{Binding RetryCommand}" Style="{StaticResource PrimaryButtonStyle}" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

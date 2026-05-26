@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FoodApp.ViewModels"
+             xmlns:models="clr-namespace:FoodApp.Models"
+             x:Class="FoodApp.Views.HistoryPage"
+             x:DataType="vm:HistoryViewModel"
+             Style="{StaticResource PageStyle}"
+             Title="{Binding Title}">
+
+    <CollectionView ItemsSource="{Binding Records}" Margin="16">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:ScanRecord">
+                <SwipeView>
+                    <SwipeView.RightItems>
+                        <SwipeItems Mode="Execute">
+                            <SwipeItem Text="Delete"
+                                       BackgroundColor="{StaticResource ErrorColor}"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HistoryViewModel}}, Path=DeleteCommand}"
+                                       CommandParameter="{Binding .}" />
+                        </SwipeItems>
+                    </SwipeView.RightItems>
+                    <Border Style="{StaticResource CardBorderStyle}" Margin="0,4">
+                        <Grid ColumnDefinitions="*,Auto" Padding="8">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding FoodLabel}" FontAttributes="Bold" />
+                                <Label Text="{Binding ScannedAt, StringFormat='{0:g}'}"
+                                       Style="{StaticResource CaptionStyle}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Calories, StringFormat='{0} kcal'}"
+                                   VerticalOptions="Center"
+                                   TextColor="{StaticResource Primary}" />
+                        </Grid>
+                    </Border>
+                </SwipeView>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>

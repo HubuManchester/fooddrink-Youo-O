@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FoodApp.ViewModels"
+             x:Class="FoodApp.Views.SettingsPage"
+             x:DataType="vm:SettingsViewModel"
+             Style="{StaticResource PageStyle}"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+            <Label Text="Appearance and goals"
+                   Style="{StaticResource SubTitleStyle}" />
+
+            <Grid ColumnDefinitions="*,Auto" MinimumHeightRequest="44">
+                <Label Text="Dark mode"
+                       VerticalOptions="Center"
+                       AutomationProperties.Name="Dark mode label" />
+                <Switch Grid.Column="1"
+                        IsToggled="{Binding IsDarkMode}"
+                        MinimumHeightRequest="44"
+                        MinimumWidthRequest="44"
+                        AutomationProperties.Name="Dark mode toggle"
+                        AutomationProperties.HelpText="Persists theme to app settings" />
+            </Grid>
+
+            <Label Text="Daily calorie goal" Style="{StaticResource SubTitleStyle}" />
+            <Entry Text="{Binding CalorieGoalText}"
+                   Keyboard="Numeric"
+                   MinimumHeightRequest="44"
+                   AutomationProperties.Name="Daily calorie goal"
+                   AutomationProperties.HelpText="Must be between 500 and 10000" />
+            <Label Text="{Binding ValidationError}" Style="{StaticResource ErrorLabelStyle}" />
+
+            <Button Text="Save settings"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding SaveCommand}"
+                    AutomationProperties.Name="Save settings" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
