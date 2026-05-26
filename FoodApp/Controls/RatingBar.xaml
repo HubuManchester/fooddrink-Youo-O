@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodApp.Controls.RatingBar"
+             x:Name="Root">
+    <HorizontalStackLayout Spacing="4" BindableLayout.ItemsSource="{Binding Source={x:Reference Root}, Path=StarCount}">
+        <BindableLayout.ItemTemplate>
+            <DataTemplate>
+                <Button Text="★"
+                        FontSize="22"
+                        MinimumHeightRequest="44"
+                        MinimumWidthRequest="44"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource Primary}"
+                        Command="{Binding Source={x:Reference Root}, Path=SelectRatingCommand}"
+                        CommandParameter="{Binding .}"
+                        AutomationProperties.Name="Rate meal star" />
+            </DataTemplate>
+        </BindableLayout.ItemTemplate>
+    </HorizontalStackLayout>
+</ContentView>
