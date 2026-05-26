@@ -1,0 +1,17 @@
+## .NET MAUI
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.cache
+*.dll
+*.pdb
+*.apk
+*.aab
+*.ipa
+*.app
+*.msix
+local.properties
+.DS_Store
+Thumbs.db
