@@ -1,3 +1,4 @@
+using System.Globalization;
 using FoodApp.Models;
 using FoodApp.Services.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -139,7 +140,7 @@ public class DatabaseService : IDatabaseService
                 .Sum(s => s.Calories);
             stats.Add(new NutritionDayStat
             {
-                DayLabel = day.ToString("ddd"),
+                DayLabel = day.ToString("ddd", CultureInfo.GetCultureInfo("en-US")),
                 Calories = total
             });
         }
