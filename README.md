@@ -71,8 +71,6 @@ Labels are in `FoodApp/Resources/Raw/food_labels.json`. Without the ONNX file, t
 
 Recording link: `https://mmutube.mmu.ac.uk/YOUR_VIDEO_ID` _(replace after upload)_
 
-Suggested outline: see [docs/评分标准检查报告.md](docs/评分标准检查报告.md) → Screencast 建议演示大纲
-
 ## Run instructions
 
 ### Prerequisites
@@ -80,7 +78,7 @@ Suggested outline: see [docs/评分标准检查报告.md](docs/评分标准检�
 - Visual Studio 2022 17.8+ with **.NET MAUI** workload
 - **.NET 8 SDK**
 
-### Visual Studio 2022（推荐）
+### Visual Studio 2022
 
 1. Open `FoodApp.sln`
 2. Set **FoodApp** as startup project
@@ -132,9 +130,6 @@ FoodApp/
   Controls/               # RatingBar, NutritionLabel, CachedFoodImage
   Resources/Strings/      # AppResources.resx (no hardcoded UI strings)
   Resources/Raw/          # food_labels.json, food_classifier.onnx
-docs/
-  ACCESSIBILITY.md        # WCAG 2.1 notes for screencast
-  评分标准检查报告.md      # Rubric self-assessment
 ```
 
 ## NuGet packages
