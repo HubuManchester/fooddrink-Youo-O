@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!-- Appearance, font scale, calorie goal, and user guide link -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:FoodApp.ViewModels"
+             xmlns:strings="clr-namespace:FoodApp.Resources.Strings"
              x:Class="FoodApp.Views.SettingsPage"
              x:DataType="vm:SettingsViewModel"
              Style="{StaticResource PageStyle}"
              Title="{Binding Title}">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="?"
+                       Command="{Binding OpenHelpCommand}"
+                       AutomationProperties.Name="{x:Static strings:AppResources.OpenHelp}" />
+    </ContentPage.ToolbarItems>
+
     <ScrollView>
-        <VerticalStackLayout Padding="16" Spacing="16">
-            <Label Text="Appearance and goals"
+        <VerticalStackLayout Padding="16" Spacing="16" MaximumWidthRequest="720" HorizontalOptions="Center">
+            <Label Text="{x:Static strings:AppResources.AppearanceAndGoals}"
                    Style="{StaticResource SubTitleStyle}" />
 
             <Grid ColumnDefinitions="*,Auto" MinimumHeightRequest="44">
-                <Label Text="Dark mode"
+                <Label Text="{x:Static strings:AppResources.DarkMode}"
                        VerticalOptions="Center"
                        AutomationProperties.Name="Dark mode label" />
                 <Switch Grid.Column="1"
@@ -24,7 +32,18 @@
                         AutomationProperties.HelpText="Persists theme to app settings" />
             </Grid>
 
-            <Label Text="Daily calorie goal" Style="{StaticResource SubTitleStyle}" />
+            <Label Text="{x:Static strings:AppResources.FontSizeLabel}"
+                   Style="{StaticResource SubTitleStyle}" />
+            <Slider Minimum="0.85"
+                    Maximum="1.35"
+                    Value="{Binding FontScale}"
+                    MinimumHeightRequest="44"
+                    AutomationProperties.Name="Font size slider"
+                    AutomationProperties.HelpText="Adjusts in-app text size from 85% to 135%" />
+            <Label Text="{Binding FontScale, StringFormat='Scale: {0:P0}'}"
+                   Style="{StaticResource CaptionStyle}" />
+
+            <Label Text="{x:Static strings:AppResources.CalorieGoal}" Style="{StaticResource SubTitleStyle}" />
             <Entry Text="{Binding CalorieGoalText}"
                    Keyboard="Numeric"
                    MinimumHeightRequest="44"
@@ -32,10 +51,15 @@
                    AutomationProperties.HelpText="Must be between 500 and 10000" />
             <Label Text="{Binding ValidationError}" Style="{StaticResource ErrorLabelStyle}" />
 
-            <Button Text="Save settings"
+            <Button Text="{x:Static strings:AppResources.SaveSettings}"
                     Style="{StaticResource PrimaryButtonStyle}"
                     Command="{Binding SaveCommand}"
                     AutomationProperties.Name="Save settings" />
+
+            <Button Text="{x:Static strings:AppResources.OpenUserGuide}"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding OpenHelpCommand}"
+                    AutomationProperties.Name="{x:Static strings:AppResources.OpenUserGuide}" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -1,37 +1,41 @@
-﻿using FoodApp.Services;
-using FoodApp.Services.Interfaces;
+﻿using System.Globalization;
+using FoodApp.Resources.Strings;
+using FoodApp.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FoodApp;
 
 /// <summary>
-/// Application entry: theme bootstrap and database init.
+/// Application entry: culture, persisted theme, and DI window creation.
 /// </summary>
 public partial class App : Application
 {
-    public App()
+    private readonly IServiceProvider _services;
+
+    public App(IServiceProvider services)
     {
+        _services = services;
+        ApplyEnglishCulture();
         InitializeComponent();
+
+        // Restore persisted theme (Settings also writes this key on save).
         var isDark = ThemeService.ReadDarkModePreference();
         UserAppTheme = isDark ? AppTheme.Dark : AppTheme.Light;
     }
 
-    protected override Window CreateWindow(IActivationState? activationState) =>
-        new(new AppShell());
-
-    protected override async void OnStart()
+    /// <summary>
+    /// Forces English UI strings for consistent assessment demos.
+    /// </summary>
+    private static void ApplyEnglishCulture()
     {
-        base.OnStart();
-        try
-        {
-            var db = Handler?.MauiContext?.Services.GetService<IDatabaseService>();
-            if (db != null)
-            {
-                await db.InitializeAsync();
-            }
-        }
-        catch
-        {
-            // Logged in service; app must not crash on DB init failure at startup.
-        }
+        var enUs = CultureInfo.GetCultureInfo("en-US");
+        CultureInfo.CurrentCulture = enUs;
+        CultureInfo.CurrentUICulture = enUs;
+        CultureInfo.DefaultThreadCurrentCulture = enUs;
+        CultureInfo.DefaultThreadCurrentUICulture = enUs;
+        AppResources.Culture = enUs;
     }
+
+    protected override Window CreateWindow(IActivationState? activationState) =>
+        new Window(_services.GetRequiredService<AppShell>());
 }

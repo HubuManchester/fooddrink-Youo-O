@@ -30,6 +30,7 @@ public static class MauiProgram
         RegisterServices(builder.Services);
         RegisterViewModels(builder.Services);
         RegisterViews(builder.Services);
+        builder.Services.AddSingleton<AppShell>();
 
 #if DEBUG
         builder.Logging.AddDebug();
@@ -49,6 +50,8 @@ public static class MauiProgram
         services.AddSingleton<IHapticService, HapticService>();
         services.AddSingleton<IFlashlightService, FlashlightService>();
         services.AddSingleton<IThemeService, ThemeService>();
+        services.AddSingleton<IFontScaleService, FontScaleService>();
+        services.AddSingleton<ITextToSpeechService, TextToSpeechService>();
         services.AddSingleton<IConnectivityService, ConnectivityService>();
         services.AddSingleton<IImageCacheService, ImageCacheService>();
 
@@ -56,9 +59,7 @@ public static class MauiProgram
         {
             client.Timeout = TimeSpan.FromSeconds(30);
         });
-        services.AddHttpClient<ImageCacheService>();
-        services.AddSingleton<IImageCacheService>(sp =>
-            sp.GetRequiredService<ImageCacheService>());
+        services.AddHttpClient<IImageCacheService, ImageCacheService>();
     }
 
     private static void RegisterViewModels(IServiceCollection services)
